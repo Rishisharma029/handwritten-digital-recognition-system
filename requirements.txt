@@ -1,0 +1,93 @@
+# ==========================
+# CORE
+# ==========================
+numpy
+pandas
+scipy
+
+# ==========================
+# COMPUTER VISION
+# ==========================
+opencv-python
+Pillow
+scikit-image
+
+# ==========================
+# OCR
+# ==========================
+easyocr
+pytesseract
+paddleocr
+
+# ==========================
+# DEEP LEARNING
+# ==========================
+torch
+torchvision
+torchaudio
+transformers
+accelerate
+sentencepiece
+tokenizers
+
+# ==========================
+# DOCUMENT PROCESSING
+# ==========================
+pdf2image
+pymupdf
+python-docx
+reportlab
+
+# ==========================
+# IMAGE UTILITIES
+# ==========================
+imutils
+
+# ==========================
+# SPELL CHECK & NLP
+# ==========================
+nltk
+textblob
+pyspellchecker
+
+# ==========================
+# WEB API
+# ==========================
+fastapi
+uvicorn
+python-multipart
+pydantic
+
+# ==========================
+# DATABASE
+# ==========================
+sqlalchemy
+alembic
+
+# ==========================
+# AUTHENTICATION
+# ==========================
+python-jose
+passlib[bcrypt]
+
+# ==========================
+# ENVIRONMENT
+# ==========================
+python-dotenv
+
+# ==========================
+# HTTP REQUESTS
+# ==========================
+requests
+
+# ==========================
+# UTILITIES
+# ==========================
+tqdm
+rich
+loguru
+
+# ==========================
+# TESTING
+# ==========================
+pytest

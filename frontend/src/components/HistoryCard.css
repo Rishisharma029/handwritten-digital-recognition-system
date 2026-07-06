@@ -1,0 +1,32 @@
+.history-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.history-card__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.history-card__meta {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.history-card__text {
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+}
+
+.history-card__delete {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+}

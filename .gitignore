@@ -1,0 +1,275 @@
+# ==================================================
+# Python
+# ==================================================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+
+# Python Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ==================================================
+# Environment Variables
+# ==================================================
+
+.env
+.env.*
+backend/.env
+frontend/.env
+
+# ==================================================
+# IDE
+# ==================================================
+
+.vscode/
+.idea/
+
+*.code-workspace
+
+# ==================================================
+# Operating System
+# ==================================================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ==================================================
+# Logs
+# ==================================================
+
+logs/
+
+*.log
+
+# ==================================================
+# Database
+# ==================================================
+
+*.db
+*.sqlite
+*.sqlite3
+
+database/*.db
+
+# ==================================================
+# Uploads
+# ==================================================
+
+uploads/*
+!uploads/README.md
+
+# ==================================================
+# Outputs
+# ==================================================
+
+outputs/*
+!outputs/README.md
+
+outputs/docx/*
+!outputs/docx/README.md
+
+outputs/pdf/*
+!outputs/pdf/README.md
+
+outputs/txt/*
+!outputs/txt/README.md
+
+outputs/json/*
+!outputs/json/README.md
+
+outputs/extracted_text/*
+!outputs/extracted_text/README.md
+
+# ==================================================
+# Processed Data
+# ==================================================
+
+data/processed/*
+!data/processed/README.md
+
+# ==================================================
+# Raw Dataset
+# ==================================================
+
+data/raw/*
+!data/raw/README.md
+
+data/iam/*
+!data/iam/README.md
+
+data/cvl/*
+!data/cvl/README.md
+
+data/emnist/*
+!data/emnist/README.md
+
+data/custom/*
+!data/custom/README.md
+
+# ==================================================
+# Trained Models
+# ==================================================
+
+trained_models/checkpoints/*.pt
+trained_models/checkpoints/*.pth
+trained_models/checkpoints/*.bin
+trained_models/checkpoints/*.ckpt
+trained_models/checkpoints/*.safetensors
+
+trained_models/custom/**/*.pt
+trained_models/custom/**/*.pth
+trained_models/custom/**/*.bin
+trained_models/custom/**/*.onnx
+trained_models/custom/**/*.ckpt
+trained_models/custom/**/*.safetensors
+
+# Keep documentation
+!trained_models/checkpoints/README.md
+!trained_models/custom/README.md
+
+# ==================================================
+# Model Cache
+# ==================================================
+
+.cache/
+torch_cache/
+huggingface/
+hf_cache/
+
+# ==================================================
+# Node.js
+# ==================================================
+
+frontend/node_modules/
+
+node_modules/
+
+npm-debug.log*
+
+yarn-debug.log*
+
+yarn-error.log*
+
+pnpm-debug.log*
+
+# ==================================================
+# React / Vite
+# ==================================================
+
+frontend/dist/
+
+dist/
+
+coverage/
+
+.vite/
+
+# ==================================================
+# Jupyter Notebook
+# ==================================================
+
+.ipynb_checkpoints/
+
+# ==================================================
+# Temporary Files
+# ==================================================
+
+*.tmp
+*.temp
+
+*.bak
+
+*.swp
+
+*.swo
+
+# ==================================================
+# Images Generated During Testing
+# ==================================================
+
+*.png
+*.jpg
+*.jpeg
+*.bmp
+*.tiff
+*.gif
+
+!assets/**
+!frontend/src/assets/**
+
+# ==================================================
+# PDFs Generated
+# ==================================================
+
+*.pdf
+
+# ==================================================
+# DOCX Generated
+# ==================================================
+
+*.docx
+
+# ==================================================
+# JSON Results
+# ==================================================
+
+outputs/**/*.json
+
+# ==================================================
+# CSV Reports
+# ==================================================
+
+*.csv
+
+# ==================================================
+# ONNX Export
+# ==================================================
+
+*.onnx
+
+# ==================================================
+# TorchScript
+# ==================================================
+
+*.ts
+
+# ==================================================
+# TensorBoard
+# ==================================================
+
+runs/
+
+tensorboard/
+
+# ==================================================
+# PyTorch Lightning
+# ==================================================
+
+lightning_logs/
+
+# ==================================================
+# Miscellaneous
+# ==================================================
+
+*.zip
+*.tar
+*.gz
+*.7z
+
+# ==================================================
+# Keep Documentation
+# ==================================================
+
+!README.md
+!LICENSE
