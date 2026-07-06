@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { recognizeDocument } from "../services/api";
+import { recognizeDocument, health } from "../services/api";
 import { loadSettings, saveSettings } from "../utils/settings";
 
 const ENGINES = [
@@ -19,6 +19,13 @@ export default function Upload() {
   const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [dragging, setDragging] = useState(false);
+  const [backendStatus, setBackendStatus] = useState("checking"); // "ok" | "down" | "checking"
+
+  useEffect(() => {
+    health()
+      .then(() => setBackendStatus("ok"))
+      .catch(() => setBackendStatus("down"));
+  }, []);
   const [copied, setCopied] = useState(false);
   const [engine, setEngine] = useState(() => loadSettings().engine || "TrOCR");
 
@@ -71,7 +78,7 @@ export default function Upload() {
   return (
     <div style={{ maxWidth:"900px", margin:"0 auto", padding:"32px 24px", animation:"fadeIn 0.4s ease both" }}>
       {/* Header */}
-      <div style={{ marginBottom:"32px" }}>
+      <div style={{ marginBottom:"24px" }}>
         <h1 style={{ fontSize:"28px", fontWeight:800, color:"#f1f5f9", marginBottom:"8px" }}>
           Upload Document
         </h1>
@@ -79,6 +86,40 @@ export default function Upload() {
           Upload a handwritten image or PDF to begin OCR recognition
         </p>
       </div>
+
+      {/* Backend Status Banner */}
+      {backendStatus === "down" && (
+        <div style={{
+          display:"flex", alignItems:"flex-start", gap:"12px",
+          padding:"14px 18px", borderRadius:"12px", marginBottom:"24px",
+          background:"rgba(245,158,11,0.08)", border:"1px solid rgba(245,158,11,0.25)",
+          animation:"fadeIn 0.3s ease both",
+        }}>
+          <span style={{ fontSize:"20px", flexShrink:0 }}>⚠️</span>
+          <div>
+            <div style={{ fontWeight:700, fontSize:"14px", color:"#fbbf24", marginBottom:"4px" }}>
+              Backend not reachable
+            </div>
+            <div style={{ fontSize:"13px", color:"#92400e", lineHeight:"1.6" }}>
+              The OCR backend is not running or is not accessible from this browser.
+              {" "}<strong>GitHub Pages only hosts the static frontend</strong> — to use OCR, start the local
+              FastAPI server with <code style={{ background:"rgba(0,0,0,0.3)", padding:"1px 6px", borderRadius:"4px", fontFamily:"monospace", color:"#fcd34d" }}>python -m uvicorn backend.app:app --port 8000</code> on your machine and open{" "}
+              <a href="http://localhost:5173" target="_blank" rel="noreferrer" style={{ color:"#fbbf24", textDecoration:"underline" }}>localhost:5173</a> instead.
+            </div>
+          </div>
+        </div>
+      )}
+      {backendStatus === "ok" && (
+        <div style={{
+          display:"flex", alignItems:"center", gap:"10px",
+          padding:"10px 16px", borderRadius:"10px", marginBottom:"20px",
+          background:"rgba(74,222,128,0.06)", border:"1px solid rgba(74,222,128,0.2)",
+          animation:"fadeIn 0.3s ease both",
+        }}>
+          <div style={{ width:"8px", height:"8px", borderRadius:"50%", background:"#4ade80", boxShadow:"0 0 8px #4ade80", animation:"pulse-ring 2s ease infinite" }}/>
+          <span style={{ fontSize:"13px", color:"#4ade80", fontWeight:600 }}>Backend connected — ready to recognize</span>
+        </div>
+      )}
 
       {/* Drop Zone */}
       <div
