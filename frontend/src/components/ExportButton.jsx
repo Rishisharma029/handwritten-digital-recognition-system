@@ -1,87 +1,67 @@
 import React, { useState } from "react";
-import {
-  exportToPDF,
-  exportToDocx,
-  exportToTxt,
-  exportToJson,
-} from "../services/export";
+import { exportToPDF, exportToDocx, exportToTxt, exportToJson } from "../services/export";
 
-const ExportButton = ({ exportData }) => {
-  const [loading, setLoading] = useState(false);
-  const [format, setFormat] = useState("");
+const EXPORTS = [
+  { key:"pdf",  label:"PDF",  icon:"📄", fn: exportToPDF,  color:"#f87171" },
+  { key:"docx", label:"DOCX", icon:"📝", fn: exportToDocx, color:"#60a5fa" },
+  { key:"txt",  label:"TXT",  icon:"📃", fn: exportToTxt,  color:"#a3e635" },
+  { key:"json", label:"JSON", icon:"📦", fn: exportToJson, color:"#fbbf24" },
+];
 
-  const handleExport = async (exportFunc, formatName, extension) => {
+export default function ExportButton({ exportData }) {
+  const [active, setActive] = useState(null);
+  const [done, setDone] = useState(null);
+
+  const handle = async (exp) => {
+    if (active) return;
+    setActive(exp.key);
     try {
-      setLoading(true);
-      setFormat(formatName);
-      const filename = `${exportData.filename}.${extension}`;
-      await exportFunc(exportData, filename);
-    } catch (error) {
-      console.error(error);
-      alert(`Export to ${formatName.toUpperCase()} failed.`);
+      await exp.fn(exportData, `${exportData.filename}.${exp.key}`);
+      setDone(exp.key);
+      setTimeout(() => setDone(null), 2000);
+    } catch (e) {
+      console.error(e);
+      alert(`Export to ${exp.label} failed.`);
     } finally {
-      setLoading(false);
-      setFormat("");
+      setActive(null);
     }
   };
 
-  const buttonStyle = {
-    padding: "12px 22px",
-    background: loading ? "#94a3b8" : "#10b981",
-    color: "#fff",
-    border: "none",
-    borderRadius: "8px",
-    cursor: loading ? "not-allowed" : "pointer",
-    fontSize: "14px",
-  };
-
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "10px",
-        flexWrap: "wrap",
-      }}
-    >
-      <button
-        onClick={() => handleExport(exportToPDF, "pdf", "pdf")}
-        disabled={loading}
-        style={buttonStyle}
-      >
-        📄 Export PDF
-      </button>
-
-      <button
-        onClick={() => handleExport(exportToDocx, "docx", "docx")}
-        disabled={loading}
-        style={buttonStyle}
-      >
-        📝 Export DOCX
-      </button>
-
-      <button
-        onClick={() => handleExport(exportToTxt, "txt", "txt")}
-        disabled={loading}
-        style={buttonStyle}
-      >
-        📃 Export TXT
-      </button>
-
-      <button
-        onClick={() => handleExport(exportToJson, "json", "json")}
-        disabled={loading}
-        style={buttonStyle}
-      >
-        📦 Export JSON
-      </button>
-
-      {loading && (
-        <span style={{ marginLeft: "10px", color: "#6b7280" }}>
-          Exporting to {format.toUpperCase()}...
-        </span>
-      )}
+    <div style={{ display:"flex", gap:"10px", flexWrap:"wrap" }}>
+      {EXPORTS.map(exp => {
+        const isLoading = active === exp.key;
+        const isDone    = done === exp.key;
+        return (
+          <button
+            key={exp.key}
+            onClick={() => handle(exp)}
+            disabled={!!active}
+            style={{
+              display:"flex", alignItems:"center", gap:"7px",
+              padding:"11px 20px", borderRadius:"10px",
+              background: isDone
+                ? "rgba(74,222,128,0.12)"
+                : `${exp.color}14`,
+              border: `1px solid ${isDone ? "rgba(74,222,128,0.3)" : exp.color + "30"}`,
+              color: isDone ? "#4ade80" : exp.color,
+              fontWeight:600, fontSize:"13px",
+              cursor: active ? "not-allowed" : "pointer",
+              opacity: active && !isLoading ? 0.5 : 1,
+              transition:"all 0.2s",
+            }}
+            onMouseEnter={e => { if(!active) e.currentTarget.style.background=`${exp.color}22`; }}
+            onMouseLeave={e => { if(!active) e.currentTarget.style.background=isDone?"rgba(74,222,128,0.12)":`${exp.color}14`; }}
+          >
+            {isLoading ? (
+              <div style={{ width:"13px", height:"13px", border:`2px solid ${exp.color}40`, borderTop:`2px solid ${exp.color}`, borderRadius:"50%", animation:"spin 0.8s linear infinite" }}/>
+            ) : (
+              <span style={{ fontSize:"14px" }}>{isDone ? "✓" : exp.icon}</span>
+            )}
+            {isDone ? "Saved!" : `Export ${exp.label}`}
+          </button>
+        );
+      })}
     </div>
   );
-};
-
-export default ExportButton;
+}

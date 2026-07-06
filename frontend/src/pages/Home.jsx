@@ -1,256 +1,187 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Home = () => {
-  const features = [
-    {
-      title: "Handwritten OCR",
-      description: "Recognize handwritten notes with high accuracy."
-    },
-    {
-      title: "Printed Text OCR",
-      description: "Extract text from printed documents and books."
-    },
-    {
-      title: "Multiple OCR Engines",
-      description: "EasyOCR, TrOCR, PaddleOCR and Tesseract."
-    },
-    {
-      title: "Export Results",
-      description: "Export OCR results as PDF, DOCX, TXT and JSON."
-    }
-  ];
+const FEATURES = [
+  { icon:"✦", title:"TrOCR Transformer", desc:"Microsoft's Vision Transformer — best-in-class for cursive & stylized handwriting recognition.", color:"#818cf8" },
+  { icon:"◈", title:"Line Segmentation", desc:"Custom vertical center-density valley clustering algorithm correctly splits multi-line handwritten images.", color:"#34d399" },
+  { icon:"⬡", title:"4 OCR Engines",    desc:"Switch between TrOCR, EasyOCR, PaddleOCR, and Tesseract based on your document type.", color:"#fbbf24" },
+  { icon:"⬦", title:"Smart Export",     desc:"Export recognized text to PDF, DOCX, TXT or JSON with one click.", color:"#f472b6" },
+  { icon:"◷", title:"OCR History",      desc:"Every recognition job is automatically saved with metadata, confidence scores, and timestamps.", color:"#60a5fa" },
+  { icon:"⚡", title:"~1s Model Load",  desc:"Models load in under 1 second in offline mode — no Hugging Face cloud checks on startup.", color:"#a78bfa" },
+];
 
-  const engines = [
-    "EasyOCR",
-    "TrOCR",
-    "PaddleOCR",
-    "Tesseract"
-  ];
+const TECH = [
+  { name:"TrOCR",        tag:"Transformer OCR",    color:"#818cf8" },
+  { name:"EasyOCR",      tag:"CRAFT Detector",     color:"#34d399" },
+  { name:"FastAPI",      tag:"Backend",            color:"#fbbf24" },
+  { name:"React + Vite", tag:"Frontend",           color:"#60a5fa" },
+  { name:"OpenCV",       tag:"Computer Vision",    color:"#f472b6" },
+  { name:"SQLite",       tag:"Database",           color:"#a78bfa" },
+  { name:"PyTorch",      tag:"Deep Learning",      color:"#fb923c" },
+  { name:"Hugging Face", tag:"Model Hub",          color:"#facc15" },
+];
 
+const STATS = [
+  { value:"4",    label:"OCR Engines" },
+  { value:"4",    label:"Export Formats" },
+  { value:"7+",   label:"File Formats" },
+  { value:"~90%", label:"Handwriting Accuracy" },
+];
+
+export default function Home() {
   return (
-    <div
-      style={{
-        maxWidth: "1200px",
-        margin: "40px auto",
-        padding: "20px"
-      }}
-    >
+    <div style={{ maxWidth:"1100px", margin:"0 auto", padding:"32px 24px", animation:"fadeIn 0.4s ease both" }}>
+
       {/* Hero */}
+      <div style={{
+        position:"relative", overflow:"hidden",
+        background:"linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(20,184,166,0.08) 100%)",
+        border:"1px solid rgba(99,102,241,0.2)",
+        borderRadius:"24px", padding:"64px 40px",
+        textAlign:"center", marginBottom:"48px",
+      }}>
+        {/* Background decoration */}
+        <div style={{ position:"absolute", top:"-60px", left:"-60px", width:"240px", height:"240px", background:"radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%)", pointerEvents:"none" }}/>
+        <div style={{ position:"absolute", bottom:"-60px", right:"-60px", width:"200px", height:"200px", background:"radial-gradient(circle, rgba(20,184,166,0.15) 0%, transparent 70%)", pointerEvents:"none" }}/>
 
-      <div
-        style={{
-          textAlign: "center",
-          padding: "70px 20px",
-          background: "#2563eb",
-          color: "#fff",
-          borderRadius: "20px"
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "48px",
-            marginBottom: "20px"
-          }}
-        >
-          Handwritten Digital Recognition System
-        </h1>
+        <div style={{ position:"relative", zIndex:1 }}>
+          <div style={{
+            display:"inline-flex", alignItems:"center", gap:"8px",
+            padding:"6px 16px", borderRadius:"99px", marginBottom:"24px",
+            background:"rgba(99,102,241,0.15)", border:"1px solid rgba(99,102,241,0.3)",
+            fontSize:"13px", fontWeight:600, color:"#818cf8",
+          }}>
+            ✦ AI-Powered Handwriting Recognition
+          </div>
 
-        <p
-          style={{
-            fontSize: "20px",
-            maxWidth: "850px",
-            margin: "0 auto 40px"
-          }}
-        >
-          AI-powered OCR platform capable of recognizing handwritten
-          and printed documents using multiple state-of-the-art OCR
-          engines.
-        </p>
+          <h1 style={{
+            fontSize:"clamp(32px,5vw,52px)", fontWeight:900, lineHeight:1.15,
+            color:"#f1f5f9", marginBottom:"20px", letterSpacing:"-1px",
+          }}>
+            Turn Handwriting into<br/>
+            <span style={{
+              background:"linear-gradient(135deg,#818cf8,#34d399)",
+              WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text",
+            }}>Digital Text — Instantly</span>
+          </h1>
 
-        <Link to="/upload">
-          <button
-            style={{
-              padding: "15px 35px",
-              fontSize: "18px",
-              border: "none",
-              borderRadius: "10px",
-              cursor: "pointer",
-              background: "#ffffff",
-              color: "#2563eb",
-              fontWeight: "bold"
+          <p style={{
+            color:"#64748b", fontSize:"17px", maxWidth:"600px", margin:"0 auto 36px",
+            lineHeight:"1.75",
+          }}>
+            HDRS uses Microsoft's TrOCR Transformer combined with a custom line-segmentation
+            pipeline to accurately transcribe multi-line cursive handwriting from photos,
+            scans, and documents.
+          </p>
+
+          <div style={{ display:"flex", gap:"14px", justifyContent:"center", flexWrap:"wrap" }}>
+            <Link to="/upload" style={{
+              display:"inline-flex", alignItems:"center", gap:"8px",
+              padding:"16px 32px",
+              background:"linear-gradient(135deg,#6366f1,#4f46e5)",
+              color:"#fff", borderRadius:"12px", fontWeight:700, fontSize:"16px",
+              boxShadow:"0 8px 28px rgba(99,102,241,0.4)", textDecoration:"none",
+              transition:"all 0.25s",
             }}
-          >
-            Start Recognition
-          </button>
-        </Link>
+            onMouseEnter={e => { e.currentTarget.style.transform="translateY(-2px)"; e.currentTarget.style.boxShadow="0 12px 36px rgba(99,102,241,0.5)"; }}
+            onMouseLeave={e => { e.currentTarget.style.transform="translateY(0)"; e.currentTarget.style.boxShadow="0 8px 28px rgba(99,102,241,0.4)"; }}
+            >↑ Start Recognition</Link>
+            <Link to="/about" style={{
+              display:"inline-flex", alignItems:"center", gap:"8px",
+              padding:"16px 28px", background:"rgba(255,255,255,0.05)",
+              border:"1px solid rgba(255,255,255,0.12)", color:"#94a3b8",
+              borderRadius:"12px", fontWeight:600, fontSize:"16px", textDecoration:"none",
+              transition:"all 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color="#f1f5f9"; e.currentTarget.style.background="rgba(255,255,255,0.1)"; }}
+            onMouseLeave={e => { e.currentTarget.style.color="#94a3b8"; e.currentTarget.style.background="rgba(255,255,255,0.05)"; }}
+            >Learn More →</Link>
+          </div>
+        </div>
       </div>
 
-      {/* Statistics */}
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(200px,1fr))",
-          gap: "20px",
-          marginTop: "50px"
-        }}
-      >
-        <StatCard title="OCR Engines" value="4" />
-        <StatCard title="Export Formats" value="4" />
-        <StatCard title="Supported Images" value="7+" />
-        <StatCard title="API Version" value="1.0.0" />
+      {/* Stats row */}
+      <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))", gap:"14px", marginBottom:"56px" }}>
+        {STATS.map((s, i) => (
+          <div key={s.label} style={{
+            background:"rgba(255,255,255,0.03)", border:"1px solid rgba(255,255,255,0.07)",
+            borderRadius:"16px", padding:"24px", textAlign:"center",
+            transition:"all 0.2s", cursor:"default",
+            animationDelay:`${i*0.08}s`,
+          }}
+          onMouseEnter={e => { e.currentTarget.style.background="rgba(255,255,255,0.06)"; e.currentTarget.style.transform="translateY(-2px)"; }}
+          onMouseLeave={e => { e.currentTarget.style.background="rgba(255,255,255,0.03)"; e.currentTarget.style.transform="translateY(0)"; }}
+          >
+            <div style={{
+              fontSize:"36px", fontWeight:900, marginBottom:"6px",
+              background:"linear-gradient(135deg,#818cf8,#34d399)",
+              WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text",
+            }}>{s.value}</div>
+            <div style={{ fontSize:"13px", color:"#475569", fontWeight:500 }}>{s.label}</div>
+          </div>
+        ))}
       </div>
 
       {/* Features */}
-
-      <h2
-        style={{
-          marginTop: "60px",
-          marginBottom: "25px"
-        }}
-      >
-        Features
-      </h2>
-
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
-          gap: "20px"
-        }}
-      >
-        {features.map((feature) => (
-          <div
-            key={feature.title}
-            style={{
-              padding: "25px",
-              background: "#fff",
-              borderRadius: "12px",
-              boxShadow: "0 5px 15px rgba(0,0,0,.08)"
+      <div style={{ marginBottom:"56px" }}>
+        <h2 style={{ fontSize:"22px", fontWeight:800, color:"#f1f5f9", marginBottom:"24px" }}>
+          Why HDRS?
+        </h2>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit,minmax(280px,1fr))", gap:"16px" }}>
+          {FEATURES.map((f, i) => (
+            <div key={f.title} style={{
+              padding:"24px", background:"rgba(255,255,255,0.02)",
+              border:"1px solid rgba(255,255,255,0.07)", borderRadius:"16px",
+              transition:"all 0.25s", cursor:"default",
             }}
-          >
-            <h3>{feature.title}</h3>
-
-            <p>{feature.description}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Workflow */}
-
-      <h2
-        style={{
-          marginTop: "60px"
-        }}
-      >
-        OCR Workflow
-      </h2>
-
-      <div
-        style={{
-          marginTop: "20px",
-          padding: "25px",
-          background: "#fff",
-          borderRadius: "12px",
-          boxShadow: "0 5px 15px rgba(0,0,0,.08)"
-        }}
-      >
-        <pre
-          style={{
-            whiteSpace: "pre-wrap",
-            fontSize: "16px"
-          }}
-        >
-{`Upload
-   ↓
-Preprocessing
-   ↓
-OCR Engine
-   ↓
-Post Processing
-   ↓
-Export
-`}
-        </pre>
-      </div>
-
-      {/* OCR Engines */}
-
-      <h2
-        style={{
-          marginTop: "60px"
-        }}
-      >
-        Supported OCR Engines
-      </h2>
-
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "15px",
-          marginTop: "20px"
-        }}
-      >
-        {engines.map((engine) => (
-          <div
-            key={engine}
-            style={{
-              background: "#2563eb",
-              color: "#fff",
-              padding: "12px 20px",
-              borderRadius: "30px",
-              fontWeight: "bold"
+            onMouseEnter={e => {
+              e.currentTarget.style.background="rgba(255,255,255,0.05)";
+              e.currentTarget.style.borderColor="rgba(255,255,255,0.12)";
+              e.currentTarget.style.transform="translateY(-3px)";
+              e.currentTarget.style.boxShadow="0 12px 30px rgba(0,0,0,0.3)";
             }}
-          >
-            {engine}
-          </div>
-        ))}
+            onMouseLeave={e => {
+              e.currentTarget.style.background="rgba(255,255,255,0.02)";
+              e.currentTarget.style.borderColor="rgba(255,255,255,0.07)";
+              e.currentTarget.style.transform="translateY(0)";
+              e.currentTarget.style.boxShadow="none";
+            }}
+            >
+              <div style={{
+                width:"40px", height:"40px", borderRadius:"10px", marginBottom:"14px",
+                background:`rgba(${f.color==="#818cf8"?"129,140,248":f.color==="#34d399"?"52,211,153":f.color==="#fbbf24"?"251,191,36":f.color==="#f472b6"?"244,114,182":f.color==="#60a5fa"?"96,165,250":"167,139,250"},0.15)`,
+                border:`1px solid ${f.color}30`,
+                display:"flex", alignItems:"center", justifyContent:"center",
+                fontSize:"20px", color:f.color,
+              }}>{f.icon}</div>
+              <h3 style={{ fontSize:"15px", fontWeight:700, color:"#f1f5f9", marginBottom:"8px" }}>{f.title}</h3>
+              <p style={{ fontSize:"13px", color:"#64748b", lineHeight:"1.65" }}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Footer */}
-
-      <div
-        style={{
-          textAlign: "center",
-          marginTop: "80px",
-          padding: "30px",
-          color: "#6b7280"
-        }}
-      >
-        <h3>Handwritten Digital Recognition System</h3>
-
-        <p>
-          Built with FastAPI • React • OpenCV • PyTorch • EasyOCR •
-          TrOCR
-        </p>
+      {/* Tech stack */}
+      <div>
+        <h2 style={{ fontSize:"22px", fontWeight:800, color:"#f1f5f9", marginBottom:"20px" }}>Technology Stack</h2>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:"10px" }}>
+          {TECH.map(t => (
+            <div key={t.name} style={{
+              padding:"8px 16px",
+              background:`rgba(${t.color==="#818cf8"?"129,140,248":t.color==="#34d399"?"52,211,153":t.color==="#fbbf24"?"251,191,36":t.color==="#60a5fa"?"96,165,250":t.color==="#f472b6"?"244,114,182":t.color==="#a78bfa"?"167,139,250":t.color==="#fb923c"?"251,146,60":"250,204,21"},0.1)`,
+              border:`1px solid ${t.color}30`,
+              borderRadius:"99px", cursor:"default",
+              transition:"all 0.2s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.transform="scale(1.05)"; }}
+            onMouseLeave={e => { e.currentTarget.style.transform="scale(1)"; }}
+            >
+              <span style={{ fontWeight:700, fontSize:"13px", color:t.color }}>{t.name}</span>
+              <span style={{ color:"#334155", fontSize:"12px", marginLeft:"6px" }}>· {t.tag}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
-
-const StatCard = ({ title, value }) => (
-  <div
-    style={{
-      background: "#fff",
-      borderRadius: "12px",
-      padding: "30px",
-      textAlign: "center",
-      boxShadow: "0 5px 15px rgba(0,0,0,.08)"
-    }}
-  >
-    <h1
-      style={{
-        color: "#2563eb",
-        marginBottom: "10px"
-      }}
-    >
-      {value}
-    </h1>
-
-    <p>{title}</p>
-  </div>
-);
-
-export default Home;
+}
