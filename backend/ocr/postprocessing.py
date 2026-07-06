@@ -1,12 +1,14 @@
 """Postprocessing utilities for OCR results."""
 import re
 import logging
-from spellchecker import SpellChecker
 
-logger = logging.getLogger(__name__)
-
-# Initialize spell checker
-spell = SpellChecker()
+try:
+    from spellchecker import SpellChecker
+    spell = SpellChecker()
+    SPELL_AVAILABLE = True
+except ImportError:
+    spell = None
+    SPELL_AVAILABLE = False
 
 
 def clean_text(text: str) -> str:
@@ -117,7 +119,10 @@ def correct_spelling(text: str) -> str:
     """
     if not text:
         return ""
-    
+
+    if not SPELL_AVAILABLE:
+        return text
+
     try:
         words = text.split()
         corrected_words = []
