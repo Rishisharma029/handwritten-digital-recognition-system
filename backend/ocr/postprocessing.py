@@ -10,6 +10,8 @@ except ImportError:
     spell = None
     SPELL_AVAILABLE = False
 
+logger = logging.getLogger(__name__)
+
 
 def clean_text(text: str) -> str:
     """
