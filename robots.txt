@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://rishisharma029.github.io/handwritten-digital-recognition-system/sitemap.xml
+
+# Disallow backend/api paths (not hosted here but good practice)
+Disallow: /api/
+Disallow: /admin/
